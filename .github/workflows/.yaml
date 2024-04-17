@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    -uses: actions/checkout@v2
-    -uses: azure/docker-login@v1
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
       with:
         login-server: 'neokeycloakacr.azurecr.io'
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    -run: |
+    - run: |
         docker build . -t neokeycloakacr.azurecr.io/keycloak:latest
         docker push neokeycloakacr.azurecr.io/keycloak:latest
     
-    -uses: azure/webapps-deploy@v2
+    - uses: azure/webapps-deploy@v2
       with:
         app-name: 'neokeycloak'
         images: 'neokeycloakacr.azurecr.io/keycloak:latest'
